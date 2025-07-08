@@ -8,7 +8,7 @@ function Todo({ todo, setTodoList }) {
         <div className="listContainer">
             <div className="list">
                 <input type="checkbox" id={todo.id} />
-                <label for={todo.id}>
+                <label htmlFor={todo.id}>
                     {todo.content}
                 </label>
             </div>

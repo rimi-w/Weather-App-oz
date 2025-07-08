@@ -6,6 +6,13 @@
 }
 
 .container {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.todoContainer {
   min-width: 400px;
   border: none;
   border-radius: 0 0 50px 0;
@@ -60,4 +67,27 @@
 
 .list input:checked+label {
   text-decoration: line-through;
+}
+
+.timeContainer {
+  width: 80vw;
+  height: 60px;
+  border: none;
+  border-radius: 30px;
+  padding: 0 30px;
+  background-color: #9bffc163;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 50px;
+  left: 8vw;
+}
+
+.timeContainer h2 {
+  font-size: 30px;
+}
+
+.time {
+  font-size: 20px;
 }
