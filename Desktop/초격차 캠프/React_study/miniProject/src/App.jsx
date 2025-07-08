@@ -1,20 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TodoList from "./ToDoList/TodoList";
-import "./App.css";
 import CurrentTime from "./CurrentTime/CurrentTime";
+import Saying from "./Saying/Saying";
+import "./App.css";
+
+const useFetch = (url) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setIsLoading(false);
+      });
+  }, [url]);
+  return [isLoading, data];
+}
 
 function App() {
-  const [todoList, setTodoList] = useState([
-    { id: new Date(), content: "Plan your day" },
-  ]);
+  const [isLoading, data] = useFetch(`http://localhost:3001/todo`)
+  const [todoList, setTodoList] = useState([]);
 
+  useEffect(() => {
+    isLoading === false && setTodoList(data)
+  }, [isLoading]);
 
   return (
     <div className="container">
+      <h1> 🗒️ To do List </h1>
+      <Saying useFetch={useFetch} />
+      <hr />
       <div className="timeContainer">
         <CurrentTime />
       </div>
-      <h1> 🗒️ To do List </h1>
       <div className="todoContainer">
         <TodoList todoList={todoList} setTodoList={setTodoList} />
       </div>

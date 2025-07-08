@@ -15,9 +15,17 @@ function TodoList({ todoList, setTodoList }) {
                 <button
                     className="addButton"
                     onClick={() => {
-                        const newTodo = { id: Number(new Date()), content: inputRef.current.value };
-                        const newTodoList = [...todoList, newTodo];
-                        setTodoList(newTodoList);
+                        const newTodo = {
+                            content: inputRef.current.value
+                        };
+                        fetch(`http://localhost:3001/todo`, {
+                            method: `POST`,
+                            body: JSON.stringify(newTodo)
+                        })
+                            .then(res => res.json())
+                            .then((data) => {
+                                setTodoList((prev) => [...prev, data]);
+                            })
                         inputRef.current.value = ``;
                     }}
                 >

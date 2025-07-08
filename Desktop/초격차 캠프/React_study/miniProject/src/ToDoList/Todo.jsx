@@ -16,8 +16,14 @@ function Todo({ todo, setTodoList }) {
                 <Edit todo={todo} setTodoList={setTodoList} />
                 <button
                     onClick={() => {
-                        setTodoList((prev) => {
-                            return prev.filter((el) => el.id !== todo.id);
+                        fetch(`http://localhost:3001/todo/${todo.id}`, {
+                            method: `DELETE`,
+                        }).then((res) => {
+                            if (res.ok) {
+                                setTodoList((prev) => {
+                                    return prev.filter((el) => el.id !== todo.id);
+                                });
+                            }
                         });
                     }}
                 >
